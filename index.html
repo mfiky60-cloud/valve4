@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<!-- saved from url=(0042)file:///C:/Users/MT/Downloads/index_1.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="format-detection" content="telephone=no">
+<title>NSS External Validation — Data Collection Tool</title>
+<style>
+:root{--navy:#1f4e79;--navyd:#15314f;--teal:#1c7293;--ink:#1e293b;--mute:#64748b;--line:#e2e8f0;--bg:#f4f7fb;--green:#2a7d46;--amber:#d9822b;--orange:#d2603a;--red:#b03030}
+*{box-sizing:border-box;margin:0;padding:0}
+body{-webkit-text-size-adjust:100%;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}
+.wrap{max-width:1040px;margin:0 auto;padding:26px 20px 70px}
+header{background:linear-gradient(135deg,var(--navyd),var(--navy));color:#fff;border-radius:16px;padding:24px 30px;margin-bottom:18px}
+header h1{font-size:24px;font-weight:700}
+header p{color:#c9dcf3;margin-top:6px;font-size:13.5px}
+details.note{background:#fff;border:1px solid var(--line);border-left:4px solid var(--teal);border-radius:12px;padding:6px 22px;margin-bottom:18px}
+details.note summary{cursor:pointer;font-weight:700;color:var(--navy);padding:12px 0;font-size:15px}
+details.note[open] summary{border-bottom:1px solid var(--line);margin-bottom:12px}
+.note ol{margin:6px 0 14px 20px}.note li{margin:7px 0;font-size:14px}
+.note .imp{background:#fff7ed;border:1px solid #f3d9b8;border-radius:8px;padding:10px 14px;font-size:13.5px;margin:10px 0}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 22px;box-shadow:0 1px 3px rgba(16,42,67,.06);margin-bottom:18px}
+.card h2{font-size:12.5px;text-transform:uppercase;letter-spacing:1.4px;color:var(--teal);font-weight:700;margin-bottom:12px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:880px){.grid2{grid-template-columns:1fr}}
+.row{display:flex;gap:14px;flex-wrap:wrap}
+.inp{flex:1;min-width:150px;margin-bottom:10px}
+.inp label{display:block;font-size:12.5px;color:var(--mute);font-weight:600;margin-bottom:4px}
+.inp input,.inp select{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:8px;font-size:14px;background:#fff}
+.sec{font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--mute);font-weight:700;margin:12px 0 4px;border-top:1px dashed #e4e9f0;padding-top:12px}
+.field{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f0f3f7}
+.field:last-child{border-bottom:none}
+.field label{font-size:14px;font-weight:500;padding-right:10px}
+.field .sub{display:block;font-size:11px;color:var(--mute);font-weight:400;margin-top:1px}
+.tog{position:relative;width:46px;height:26px;flex:0 0 auto;display:inline-block}
+.tog input{position:absolute;opacity:0;width:100%;height:100%;margin:0;cursor:pointer;z-index:2}
+.sl{position:absolute;top:0;right:0;bottom:0;left:0;background:#cbd5e1;border-radius:26px;transition:.2s;pointer-events:none}
+.sl:before{content:"";position:absolute;height:20px;width:20px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s}
+.tog input:checked+.sl{background:var(--navy)}
+.tog input:checked+.sl:before{transform:translateX(20px)}
+.result{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-top:6px}
+.rcell{padding:16px 20px;border-right:1px solid var(--line)}.rcell:last-child{border-right:none}
+.rcell .k{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--mute);font-weight:700}
+.bignum{font-size:40px;font-weight:800;line-height:1.1;margin-top:2px}
+.band{display:inline-block;margin-top:6px;padding:3px 11px;border-radius:20px;font-size:12px;font-weight:700;color:#fff}
+.btn{background:var(--navy);color:#fff;border:none;border-radius:9px;padding:11px 20px;font-size:14px;font-weight:600;cursor:pointer}
+.btn:hover{background:var(--navyd)}.btn.alt{background:#fff;color:var(--navy);border:1px solid var(--navy)}
+.btn.green{background:var(--green)}.btn.ghost{background:#fff;color:var(--mute);border:1px solid var(--line)}
+.bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:14px}
+table{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:6px}
+th,td{padding:7px 8px;border-bottom:1px solid var(--line);text-align:center}
+th{background:var(--navy);color:#fff;font-weight:600;font-size:11.5px;position:sticky;top:0}
+td.l,th.l{text-align:left}
+.tablewrap{max-height:340px;overflow:auto;border:1px solid var(--line);border-radius:10px}
+.del{color:var(--red);cursor:pointer;font-weight:700;border:none;background:none;font-size:14px}
+.count{font-weight:700;color:var(--navy)}
+.req{color:var(--red)}
+footer{margin-top:18px;font-size:12px;color:var(--mute);text-align:center;line-height:1.7}
+.hidden{display:none}
+</style></head>
+<body><div class="wrap">
+<header>
+<h1>Nasser Scoring System (NSS) — External Validation Data Tool</h1>
+<p>For participating cardiac surgery centres · valve surgery mortality model · data entered here stays on your computer until you export and email the CSV back</p>
+</header>
+
+<details class="note" open="">
+<summary>📋 Note to the participating centre — please read before you start</summary>
+<p><b>Purpose.</b> You are helping to externally validate the Nasser Scoring System (NSS), a mortality risk model for valve surgery developed for rheumatic-predominant populations. We compare the score's prediction against your real outcomes.</p>
+<ol>
+<li><b>Which patients to enter.</b> Consecutive patients <b>aged 16 years or older</b> undergoing <b>valve surgery of any kind</b> — replacement or repair, single or multiple valves, with or without concomitant CABG or other procedures. <b>Exclude</b> valve operations combined with <b>major aortic (thoracic-aorta) surgery</b>, and <b>exclude paediatric or congenital cases</b> (under 16 years, infants, neonates): the NSS is an adult/adolescent model and is not valid for them. Above 80 years, data are sparse — interpret with caution.</li>
+<li><b>One record per operation.</b> Complete every field for each patient, then press <b>“Add patient to dataset”.</b></li>
+<li><b>Outcome definition.</b> Record the patient as <b>“Died”</b> if death occurred <b>during the same hospital admission OR within 30 days of surgery</b> (whichever applies). Otherwise record <b>“Alive”.</b> Indicate the timing, and if the patient died, the <b>main cause of death.</b> <b>You may enter a patient at any time</b>, even while still alive before day 30. If that patient later dies within 30 days, just <b>re-enter the same study code</b> (or click it in the table) to bring the record back and update it. <b>Only export and send the file once every patient is at least 30 days past surgery</b> — patients still inside the 30-day window are flagged with ⏳ in the table.</li>
+<li><b>Identification &amp; privacy.</b> Use a <b>local study code</b> for each patient (e.g. your centre initials + a sequential number). <b>Do not enter patient names or national ID numbers.</b> Keep your own private log linking the study code to the medical record. Nothing leaves your computer automatically — data is held in this page only.</li>
+<li><b>When finished.</b> Press <b>“Export CSV”</b> to download the file, then email it to the coordinating centre (Nasser Institute, Department of Cardiac Surgery). The CSV contains the variables, the NSS-predicted risk, and your recorded outcome — everything we need to verify the model.</li>
+</ol>
+<div class="imp"><b>Tip:</b> the predicted mortality updates live as you enter each patient, so the tool doubles as a bedside risk calculator. Save your browser tab; your entered patients persist on this device until you clear them.</div>
+</details>
+
+<div class="card">
+ <h2>Centre identification (enter once)</h2>
+ <div class="row">
+  <div class="inp"><label>Centre / hospital name <span class="req">*</span></label><input id="c_name" placeholder="e.g. King Faisal Cardiac Centre"></div>
+  <div class="inp"><label>City, Country <span class="req">*</span></label><input id="c_loc" placeholder="e.g. Riyadh, Saudi Arabia"></div>
+ </div>
+ <div class="row">
+  <div class="inp"><label>Principal investigator</label><input id="c_pi" placeholder="Name"></div>
+  <div class="inp"><label>Contact email</label><input id="c_email" type="email" placeholder="name@centre.org"></div>
+  <div class="inp"><label>Case period</label><input id="c_period" placeholder="e.g. Jan–Dec 2025"></div>
+ </div>
+</div>
+
+<div class="grid2">
+ <div class="card">
+  <h2>Patient &amp; preoperative factors</h2>
+  <div class="row">
+   <div class="inp" style="max-width:46%"><label>Patient study code <span class="req">*</span></label><input id="study_id" placeholder="e.g. KFCC-001"></div>
+   <div class="inp" style="max-width:46%"><label>Operation date</label><input id="op_date" type="date"></div>
+  </div>
+  <div class="row">
+   <div class="inp" style="max-width:46%"><label>Age, 16–90 yrs <span class="req">*</span></label><input id="age" type="number" min="16" max="90" value="55"></div>
+   <div class="inp" style="max-width:46%"><label>Sex</label><select id="sex"><option value="0">Male</option><option value="1">Female</option></select></div>
+  </div>
+  <div class="field"><label>Diabetes</label><select id="diabetes" style="padding:7px 9px;border:1px solid var(--line);border-radius:8px;font-size:14px;background:#fff"><option value="0">None</option><option value="noninsulin">Diet- or tablet-controlled</option><option value="insulin">Insulin-treated</option></select></div>
+  <div class="field"><label>Renal function</label><select id="renal" style="padding:7px 9px;border:1px solid var(--line);border-radius:8px;font-size:14px;background:#fff"><option value="0">Normal</option><option value="cr_high">Creatinine &gt; 2 mg/dL</option><option value="dialysis">On dialysis</option></select></div><div class="field"><label>LV function (ejection fraction)</label><select id="ef" style="padding:7px 9px;border:1px solid var(--line);border-radius:8px;font-size:14px;background:#fff"><option value="0">Good (&gt; 50%)</option><option value="ef_fair">Fair (30–50%)</option><option value="ef_poor">Poor (&lt; 30%)</option></select></div>
+  <div class="field"><label>Previous cardiac surgery (redo)</label><label class="tog"><input type="checkbox" id="redo"><span class="sl"></span></label></div>
+  <div class="field"><label>Critical preoperative state<span class="sub">shock, IV inotropes, pre-op IABP/ventilation</span></label><label class="tog"><input type="checkbox" id="critical"><span class="sl"></span></label></div>
+  <div class="field"><label>Operative priority</label><select id="urgency" style="padding:7px 9px;border:1px solid var(--line);border-radius:8px;font-size:14px;background:#fff"><option value="0">Elective</option><option value="urgent">Urgent</option><option value="emergency">Emergency</option><option value="salvage">Salvage</option></select></div>
+  <div class="field"><label>Valve aetiology</label><select id="aetiology" style="padding:7px 9px;border:1px solid var(--line);border-radius:8px;font-size:14px;background:#fff"><option value="0">Low-risk native (rheumatic/degenerative)</option><option value="aet_ischaemic">Ischaemic</option><option value="aet_prosthetic">Prosthetic valve dysfunction</option><option value="aet_infective">Active infective endocarditis</option><option value="aet_other">Other (congenital, etc.)</option></select></div>
+  <div class="field"><label>Preoperative rhythm</label><select id="rhythm" style="padding:7px 9px;border:1px solid var(--line);border-radius:8px;font-size:14px;background:#fff"><option value="0">Sinus rhythm</option><option value="nonSR">Atrial fibrillation / flutter / heart block / paced</option></select></div>
+  <div class="field"><label>Haemoglobin on admission<span class="sub">g/dL · no effect ≥11; moderate 8–10.9 (OR 1.40); severe &lt;8 (OR 1.74)</span></label><input id="hb" type="number" step="0.1" min="3" max="22" value="13" style="max-width:120px;padding:7px 9px;border:1px solid var(--line);border-radius:8px;font-size:14px;background:#fff"></div>
+  <div class="sec">Additional echo data — collected prospectively (not used in the current score)</div>
+  <div class="field"><label>Pulmonary artery pressure (PAP)<span class="sub">systolic, mmHg · recorded for future model development</span></label><input id="pap" type="number" min="0" max="150" placeholder="e.g. 45" style="max-width:120px;padding:7px 9px;border:1px solid var(--line);border-radius:8px;font-size:14px;background:#fff"></div>
+  <div class="field"><label>RV function<span class="sub">recorded for future model development</span></label><select id="rv" style="padding:7px 9px;border:1px solid var(--line);border-radius:8px;font-size:14px;background:#fff"><option value="">—</option><option value="Normal">Normal</option><option value="Moderately impaired">Moderately impaired</option><option value="Severely impaired">Severely impaired</option></select></div>
+ </div>
+
+ <div class="card">
+  <h2>Procedure &amp; outcome</h2>
+  <div class="sec">Valve(s) operated</div>
+  <div class="field"><label>Aortic valve</label><label class="tog"><input type="checkbox" id="aortic"><span class="sl"></span></label></div>
+  <div class="field"><label>Mitral valve</label><label class="tog"><input type="checkbox" id="mitral"><span class="sl"></span></label></div>
+  <div class="field"><label>Tricuspid valve</label><label class="tog"><input type="checkbox" id="tricuspid"><span class="sl"></span></label></div>
+  <div class="field"><label>Pulmonary valve</label><label class="tog"><input type="checkbox" id="pulm"><span class="sl"></span></label></div>
+  <div class="sec">Concomitant procedures</div>
+  <div class="field"><label>Concomitant CABG</label><label class="tog"><input type="checkbox" id="cabg"><span class="sl"></span></label></div>
+  <div class="field"><label>Other concomitant procedure</label><label class="tog"><input type="checkbox" id="other_proc"><span class="sl"></span></label></div>
+  <div class="sec">Observed outcome <span class="req">*</span></div>
+  <div class="row">
+   <div class="inp" style="max-width:46%"><label>Status</label><select id="outcome"><option value="Alive">Alive</option><option value="Died">Died</option></select></div>
+   <div class="inp" style="max-width:52%"><label>Death timing</label><select id="timing"><option value="">— (alive)</option><option value="In-hospital">In-hospital (same admission)</option><option value="Within 30 days">Within 30 days of surgery</option><option value="Both">Both in-hospital &amp; ≤30 days</option></select></div>
+  </div>
+  <div class="inp" id="causewrap" style="display: none;"><label>Main cause of death</label>
+   <select id="cause"><option value="">—</option><option>Cardiac / low cardiac output</option><option>Bleeding / tamponade</option><option>Multi-organ failure / sepsis</option><option>Neurological / stroke</option><option>Respiratory failure</option><option>Renal failure</option><option>Sudden / arrhythmia</option><option>Other</option></select>
+  </div>
+ </div>
+</div>
+
+<div class="card">
+ <h2>Live NSS prediction for this patient</h2>
+ <div class="result">
+  <div class="rcell"><div class="k">Predicted in-hospital / 30-day mortality</div><div class="bignum" id="risk" style="color: rgb(148, 163, 184);">—</div><span class="band" id="bandlabel" style="background: rgb(148, 163, 184);">Select valve(s)</span></div>
+  <div class="rcell"><div class="k">Procedure profile</div><div id="profile" style="font-size:17px;font-weight:600;margin-top:8px">—</div><div class="k" style="margin-top:12px">EuroSCORE II would predict ~</div><div id="es2" style="font-size:20px;font-weight:700;color:var(--red)">—</div></div>
+ </div>
+ <div id="agewarn" style="margin-top:8px;font-size:12.5px;font-weight:600;text-align:center"></div>
+ <div class="bar">
+  <button class="btn green" id="addbtn" onclick="addPatient()">＋ Add patient to dataset</button>
+  <button class="btn ghost" onclick="clearForm()">Clear form</button>
+  <span id="msg" style="color:var(--red);font-size:13px;font-weight:600"></span>
+ </div>
+</div>
+
+<div class="card">
+ <h2>Collected dataset — <span class="count" id="count">0</span> patient(s)</h2>
+ <div class="tablewrap"><table id="tbl"><thead><tr>
+   <th class="l">Study code</th><th>Age</th><th>Sex</th><th>Valves</th><th>CABG</th><th>NSS %</th><th>Outcome</th><th>Timing</th><th>Cause</th><th></th>
+ </tr></thead><tbody id="tbody"></tbody></table></div>
+ <div style="margin:14px 0 10px;padding:10px 14px;border-radius:10px;background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;font-size:12.5px;font-weight:600">⚠ Before sending: make sure every patient is at least 30 days past surgery, and that anyone who died within 30 days has been updated (re-enter or click their study code to edit). Patients still inside the 30-day window are flagged ⏳ in the table.</div>
+ <div class="bar">
+  <button class="btn" onclick="exportCSV()">⬇ Export CSV (send this to us)</button>
+  <button class="btn alt" onclick="exportCSV(true)">📋 Copy for Excel</button>
+  <button class="btn ghost" onclick="clearAll()">Clear all data</button>
+ </div>
+</div>
+
+<footer>Nasser Institute for Research and Treatment · Department of Cardiac Surgery · NSS v2.7.1 external validation (model developed 1998–2023, n=15,206; incorporating preoperative rhythm and admission haemoglobin). v2.7 additionally captures pulmonary artery pressure (PAP, mmHg) and right-ventricular function for prospective collection; these are stored and exported but do not enter the current NSS or EuroSCORE II estimate. Haemoglobin adds no risk at or above 11 g/dL, then steps up by anaemia grade: moderate 8–10.9 g/dL (OR 1.40) and severe &lt;8 g/dL (OR 1.74). Normal/high haemoglobin never lowers risk.<br>Research instrument — not a substitute for clinical judgement. Data are stored only in this browser until you export.</footer>
+</div>
+
+<script>
+var C={c:-5.4245,age:0.03908,female:0.26457,dm_noninsulin:0.3123,dm_insulin:0.6288,cr_high:0.59385,dialysis:1.36954,redo:0.27868,critical:1.07058,urgent:0.48564,emergency:1.2091,salvage:2.24133,ef_fair:0.44954,ef_poor:0.58835,aet_ischaemic:0.19023,aet_prosthetic:0.56767,aet_infective:0.818,aet_other:0.7172,aortic:0.18712,mitral:0.12255,tricuspid:0.57414,cabg:0.58259,other_proc:0.40887,pulm:1.52965,nonSR:0.1921,hb_mod:0.3331,hb_sev:0.5547};
+var TOGS=["redo","critical","aortic","mitral","tricuspid","pulm","cabg","other_proc"];
+var CFIELDS=["c_name","c_loc","c_pi","c_email","c_period"];
+var editIdx=-1;
+function findPatient(sid){sid=String(sid).trim().toLowerCase();for(var i=0;i<data.length;i++){if(String(data[i].study_id).trim().toLowerCase()===sid)return i;}return -1;}
+function fu(r){if(r.outcome==="Died")return "";var od=r.op_date;if(!od)return " <span style=\'color:#94a3b8\'>(no date)</span>";var d=Math.floor((Date.now()-new Date(od).getTime())/86400000);if(d>=30)return " <span style=\'color:#2a7d46\'>\u2713 30d</span>";return " <span style=\'color:#d9822b\'>\u23f3 "+Math.max(0,d)+"d</span>";}
+function loadPatient(idx){var r=data[idx];if(!r)return;var fm=r._form||{};
+ document.getElementById("op_date").value=fm.op_date||r.op_date||"";
+ document.getElementById("age").value=fm.age||r.age||"55";
+ document.getElementById("sex").value=(fm.sex!=null?fm.sex:(r.sex==="F"?"1":"0"));
+ document.getElementById("diabetes").value=fm.diabetes||"0";
+ document.getElementById("renal").value=fm.renal||"0";
+ document.getElementById("aetiology").value=fm.aetiology||"0";
+ document.getElementById("urgency").value=fm.urgency||"0";
+ document.getElementById("ef").value=fm.ef||"0";
+ document.getElementById("rhythm").value=fm.rhythm||"0";
+ document.getElementById("hb").value=(fm.hb!=null&&fm.hb!=="")?fm.hb:"13";
+ document.getElementById("pap").value=(fm.pap!=null?fm.pap:(r.pap||""));
+ document.getElementById("rv").value=(fm.rv!=null?fm.rv:(r.rv||""));
+ TOGS.forEach(function(t){document.getElementById(t).checked=(fm[t]!=null?fm[t]:(r[t]==="Y"));});
+ document.getElementById("outcome").value=fm.outcome||r.outcome||"Alive";
+ document.getElementById("timing").value=(fm.timing!=null?fm.timing:(r.timing||""));
+ document.getElementById("cause").value=(fm.cause!=null?fm.cause:(r.cause||""));
+ document.getElementById("study_id").value=r.study_id;
+ editIdx=idx;var ab=document.getElementById("addbtn");if(ab)ab.textContent="\u2713 Update patient";
+ var m=document.getElementById("msg");m.style.color="#1c7293";m.textContent="Editing patient \""+r.study_id+"\" \u2014 make changes, then press Update.";
+ calc();}
+function maybeLoad(){var sid=document.getElementById("study_id").value.trim();if(!sid)return;var idx=findPatient(sid);if(idx>=0&&idx!==editIdx)loadPatient(idx);}
+var data=[];
+function store(k,v){try{localStorage.setItem(k,v);}catch(e){}}
+function load(k){try{return localStorage.getItem(k);}catch(e){return null;}}
+function band(r){if(r<5)return["Low risk","#2a7d46"];if(r<15)return["Moderate risk","#d9822b"];if(r<30)return["High risk","#d2603a"];return["Very high risk","#b03030"];}
+function val(){
+ var age=parseFloat(document.getElementById("age").value)||0;
+ var female=parseInt(document.getElementById("sex").value);
+ var L=C.c+C.age*age+C.female*female;
+ var dm=document.getElementById("diabetes").value;
+ if(dm==="noninsulin")L+=C.dm_noninsulin; else if(dm==="insulin")L+=C.dm_insulin;
+ var rn=document.getElementById("renal").value;
+ if(rn==="cr_high")L+=C.cr_high; else if(rn==="dialysis")L+=C.dialysis;
+ var ae=document.getElementById("aetiology").value;
+ if(ae!=="0")L+=C[ae];
+ var ur=document.getElementById("urgency").value;
+ if(ur!=="0")L+=C[ur];
+ var efv=document.getElementById("ef").value;
+ if(efv!=="0")L+=C[efv];
+ TOGS.forEach(function(t){if(document.getElementById(t).checked)L+=C[t];});
+ var rh=document.getElementById("rhythm");if(rh&&rh.value==="nonSR")L+=C.nonSR;
+ var hbEl=document.getElementById("hb");var hbv=(hbEl&&hbEl.value!=="")?parseFloat(hbEl.value):13;
+ if(!isNaN(hbv)){if(hbv<8)L+=C.hb_sev; else if(hbv<11)L+=C.hb_mod;}
+ return 100/(1+Math.exp(-L));
+}
+function profileStr(){
+ var vs=[];[["aortic","Aortic"],["mitral","Mitral"],["tricuspid","Tricuspid"],["pulm","Pulmonary"]].forEach(function(p){if(document.getElementById(p[0]).checked)vs.push(p[1]);});
+ var s=vs.length?vs.join(" + "):"(no valve)";
+ if(document.getElementById("cabg").checked)s+=" + CABG";
+ if(document.getElementById("other_proc").checked)s+=" + other";
+ return s;
+}
+function calc(){
+ var age=parseFloat(document.getElementById("age").value)||0;var aw=document.getElementById("agewarn");aw.textContent="";
+ var nvalve=["aortic","mitral","tricuspid","pulm"].filter(function(v){return document.getElementById(v).checked;}).length;
+ document.getElementById("causewrap").style.display=document.getElementById("outcome").value==="Died"?"block":"none";
+ CFIELDS.forEach(function(f){store("nss_"+f,document.getElementById(f).value);});
+ if(age<16){document.getElementById("risk").textContent="—";document.getElementById("risk").style.color="#94a3b8";var bp=document.getElementById("bandlabel");bp.textContent="Outside validated range";bp.style.background="#b03030";document.getElementById("profile").textContent="—";document.getElementById("es2").textContent="—";aw.style.color="#b03030";aw.textContent="⚠ Age < 16 — adult/adolescent model; use a paediatric score for paediatric/congenital surgery.";return;}
+ if(nvalve===0){document.getElementById("risk").textContent="—";document.getElementById("risk").style.color="#94a3b8";var b0=document.getElementById("bandlabel");b0.textContent="Select valve(s)";b0.style.background="#94a3b8";document.getElementById("profile").textContent="—";document.getElementById("es2").textContent="—";return;}
+ var r=val(),b=band(r);
+ var el=document.getElementById("risk");el.textContent=r.toFixed(1)+"%";el.style.color=b[1];
+ var bl=document.getElementById("bandlabel");bl.textContent=b[0];bl.style.background=b[1];
+ document.getElementById("profile").textContent=profileStr();
+ document.getElementById("es2").textContent="~"+Math.max(0.4,r/5.2).toFixed(1)+"%";
+ if(age>80){aw.style.color="#d9822b";aw.textContent="⚠ Sparse data above 80 years — interpret with caution.";}
+ document.getElementById("causewrap").style.display=document.getElementById("outcome").value==="Died"?"block":"none";
+ CFIELDS.forEach(function(f){store("nss_"+f,document.getElementById(f).value);});
+}
+function clearForm(){
+ document.getElementById("study_id").value="";document.getElementById("op_date").value="";
+ document.getElementById("age").value="55";document.getElementById("sex").value="0";document.getElementById("diabetes").value="0";document.getElementById("renal").value="0";document.getElementById("aetiology").value="0";document.getElementById("urgency").value="0";document.getElementById("ef").value="0";document.getElementById("rhythm").value="0";document.getElementById("hb").value="13";document.getElementById("pap").value="";document.getElementById("rv").value="";
+ TOGS.forEach(function(t){document.getElementById(t).checked=false;});
+ document.getElementById("outcome").value="Alive";document.getElementById("timing").value="";document.getElementById("cause").value="";
+ editIdx=-1;var _ab=document.getElementById("addbtn");if(_ab)_ab.textContent="\uff0b Add patient to dataset";document.getElementById("msg").textContent="";calc();
+}
+function addPatient(){
+ var sid=document.getElementById("study_id").value.trim();
+ var msg=document.getElementById("msg");
+ if(!document.getElementById("c_name").value.trim()||!document.getElementById("c_loc").value.trim()){msg.textContent="Please fill in centre name and location first.";return;}
+ if(!sid){msg.textContent="Please enter a patient study code.";return;}
+ var out=document.getElementById("outcome").value;
+ if(out==="Died"&&!document.getElementById("timing").value){msg.textContent="Please specify the death timing.";return;}
+ var nvalve=["aortic","mitral","tricuspid","pulm"].filter(function(v){return document.getElementById(v).checked;}).length;
+ if(nvalve===0){msg.textContent="Please select at least one valve.";return;}
+ if((parseFloat(document.getElementById("age").value)||0)<16){msg.textContent="Age < 16 is outside the validated range (adult/adolescent model).";return;}
+ 
+ var rec={study_id:sid,op_date:document.getElementById("op_date").value,
+   age:document.getElementById("age").value,sex:document.getElementById("sex").value==="1"?"F":"M"};
+ TOGS.forEach(function(t){rec[t]=document.getElementById(t).checked?"Y":"N";});
+ var dmv=document.getElementById("diabetes").value;
+ rec.diabetes=dmv==="insulin"?"Insulin":(dmv==="noninsulin"?"Diet/oral":"None");
+ var rnv=document.getElementById("renal").value;
+ rec.renal=rnv==="dialysis"?"Dialysis":(rnv==="cr_high"?"Creatinine>2":"Normal");
+ var aev=document.getElementById("aetiology").value;
+ rec.aetiology={"0":"Low-risk native","aet_ischaemic":"Ischaemic","aet_prosthetic":"Prosthetic dysfunction","aet_infective":"Active endocarditis","aet_other":"Other"}[aev];
+ var urv=document.getElementById("urgency").value;
+ rec.urgency=urv==="0"?"Elective":urv.charAt(0).toUpperCase()+urv.slice(1);
+ var efv2=document.getElementById("ef").value;
+ rec.ef={"0":"Good","ef_fair":"Fair","ef_poor":"Poor"}[efv2];
+ rec.rhythm=document.getElementById("rhythm").value==="nonSR"?"Non-SR":"Sinus";
+ rec.hb=document.getElementById("hb").value;
+ rec.pap=document.getElementById("pap").value;rec.rv=document.getElementById("rv").value;
+ rec.nss_pred=val().toFixed(1);
+ rec.outcome=out;rec.timing=document.getElementById("timing").value;rec.cause=out==="Died"?document.getElementById("cause").value:"";
+ rec.profile=profileStr();
+ rec._form={op_date:document.getElementById("op_date").value,age:document.getElementById("age").value,sex:document.getElementById("sex").value,diabetes:dmv,renal:rnv,aetiology:aev,urgency:urv,ef:efv2,rhythm:document.getElementById("rhythm").value,hb:document.getElementById("hb").value,pap:document.getElementById("pap").value,rv:document.getElementById("rv").value,outcome:out,timing:document.getElementById("timing").value,cause:document.getElementById("cause").value};
+ TOGS.forEach(function(t){rec._form[t]=document.getElementById(t).checked;});
+ var tIdx=editIdx>=0?editIdx:findPatient(sid);
+ if(tIdx>=0){data[tIdx]=rec;persist();render();clearForm();msg.style.color="#2a7d46";msg.textContent="\u2713 Patient \""+sid+"\" updated.";}
+ else{data.push(rec);persist();render();clearForm();msg.style.color="#2a7d46";msg.textContent="\u2713 Patient added ("+data.length+" total).";}
+ setTimeout(function(){msg.textContent="";msg.style.color="#b03030";},2500);
+}
+function render(){
+ document.getElementById("count").textContent=data.length;
+ var tb=document.getElementById("tbody");tb.innerHTML="";
+ data.forEach(function(r,i){
+   var tr=document.createElement("tr");
+   tr.innerHTML="<td class='l' style='cursor:pointer;text-decoration:underline dotted' title='Click to edit this patient' onclick='loadPatient("+i+")'>"+esc(r.study_id)+"</td><td>"+r.age+"</td><td>"+r.sex+"</td><td>"+esc(r.profile.replace(' + CABG','').replace(' + other',''))+"</td><td>"+(r.cabg==='Y'?'Yes':'No')+"</td><td><b>"+r.nss_pred+"</b></td><td style='color:"+(r.outcome==='Died'?'#b03030':'#2a7d46')+";font-weight:600'>"+r.outcome+fu(r)+"</td><td>"+esc(r.timing||'—')+"</td><td>"+esc(r.cause||'—')+"</td><td><button class='del' onclick='delRow("+i+")'>✕</button></td>";
+   tb.appendChild(tr);
+ });
+}
+function esc(s){return String(s==null?"":s).replace(/[<>&]/g,function(c){return{'<':'&lt;','>':'&gt;','&':'&amp;'}[c];});}
+function delRow(i){data.splice(i,1);persist();render();}
+function clearAll(){if(confirm("Delete all "+data.length+" entered patients from this device?")){data=[];persist();render();}}
+function persist(){store("nss_dataset",JSON.stringify(data));}
+function csvQuote(s){s=String(s==null?"":s);return '"'+s.replace(/"/g,'""')+'"';}
+function buildMatrix(){
+ var cinfo={name:gv("c_name"),loc:gv("c_loc"),pi:gv("c_pi"),email:gv("c_email"),period:gv("c_period")};
+ var head=["centre_name","centre_location","investigator","email","case_period","study_code","operation_date","age","sex","diabetes","renal_status","ef_lv_function","redo_surgery","critical_preop","urgency","aetiology","preop_rhythm","hb_admission","aortic_valve","mitral_valve","tricuspid_valve","pulmonary_valve","concomitant_cabg","other_procedure","NSS_predicted_pct","outcome","death_timing","cause_of_death","pap_mmHg","rv_function"];
+ var rows=[head];
+ data.forEach(function(r){ rows.push([cinfo.name,cinfo.loc,cinfo.pi,cinfo.email,cinfo.period,r.study_id,r.op_date,r.age,r.sex,r.diabetes,r.renal,r.ef,r.redo,r.critical,r.urgency,r.aetiology,r.rhythm,r.hb,r.aortic,r.mitral,r.tricuspid,r.pulm,r.cabg,r.other_proc,r.nss_pred,r.outcome,r.timing,r.cause,r.pap,r.rv]); });
+ return rows;
+}
+function buildCSV(){return buildMatrix().map(function(row){return row.map(csvQuote).join(",");}).join("\r\n");}
+function tsvCell(s){return String(s==null?"":s).replace(/[\t\r\n]+/g," ");}
+function buildTSV(){return buildMatrix().map(function(row){return row.map(tsvCell).join("\t");}).join("\r\n");}
+function legacyCopy(t){var ta=document.createElement("textarea");ta.value=t;ta.style.position="fixed";ta.style.opacity="0";document.body.appendChild(ta);ta.focus();ta.select();try{document.execCommand("copy");}catch(e){}document.body.removeChild(ta);}
+function copyForExcel(){var t=buildTSV();var msg="Copied — now paste straight into Excel (Ctrl+V / Cmd+V). Each value appears in its own cell under the correct heading, with the column titles across the top row.";if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(function(){alert(msg);},function(){legacyCopy(t);alert(msg);});}else{legacyCopy(t);alert(msg);}}
+function gv(id){return document.getElementById(id).value.trim();}
+function exportCSV(copy){
+ if(!data.length){alert("No patients entered yet.");return;}
+ if(copy){copyForExcel();return;}
+ var csv=buildCSV();
+ var name=(gv("c_name")||"centre").replace(/[^a-z0-9]+/gi,"_");
+ var blob=new Blob([csv],{type:"text/csv;charset=utf-8;"});
+ var a=document.createElement("a");a.href=URL.createObjectURL(blob);
+ a.download="NSS_validation_"+name+"_"+new Date().toISOString().slice(0,10)+".csv";
+ document.body.appendChild(a);a.click();document.body.removeChild(a);
+}
+// init
+(function(){
+ CFIELDS.forEach(function(f){var v=load("nss_"+f);if(v)document.getElementById(f).value=v;});
+ var d=load("nss_dataset");if(d){try{data=JSON.parse(d)||[];}catch(e){data=[];}}
+ var _els=document.querySelectorAll("input,select");for(var _i=0;_i<_els.length;_i++){_els[_i].addEventListener("input",calc);_els[_i].addEventListener("change",calc);}
+ var _sid=document.getElementById("study_id");_sid.addEventListener("change",maybeLoad);_sid.addEventListener("blur",maybeLoad);
+ render();calc();
+})();
+</script>
+
+</body></html>
