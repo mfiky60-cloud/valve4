@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0042)file:///C:/Users/MT/Downloads/index_1.html -->
+<!-- saved from url=(0068)file:///C:/Users/MT/Downloads/NSS_External_Validation_Tool_v2.8.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="format-detection" content="telephone=no">
 <title>NSS External Validation — Data Collection Tool</title>
 <style>
@@ -69,6 +69,7 @@ footer{margin-top:18px;font-size:12px;color:var(--mute);text-align:center;line-h
 <li><b>Outcome definition.</b> Record the patient as <b>“Died”</b> if death occurred <b>during the same hospital admission OR within 30 days of surgery</b> (whichever applies). Otherwise record <b>“Alive”.</b> Indicate the timing, and if the patient died, the <b>main cause of death.</b> <b>You may enter a patient at any time</b>, even while still alive before day 30. If that patient later dies within 30 days, just <b>re-enter the same study code</b> (or click it in the table) to bring the record back and update it. <b>Only export and send the file once every patient is at least 30 days past surgery</b> — patients still inside the 30-day window are flagged with ⏳ in the table.</li>
 <li><b>Identification &amp; privacy.</b> Use a <b>local study code</b> for each patient (e.g. your centre initials + a sequential number). <b>Do not enter patient names or national ID numbers.</b> Keep your own private log linking the study code to the medical record. Nothing leaves your computer automatically — data is held in this page only.</li>
 <li><b>When finished.</b> Press <b>“Export CSV”</b> to download the file, then email it to the coordinating centre (Nasser Institute, Department of Cardiac Surgery). The CSV contains the variables, the NSS-predicted risk, and your recorded outcome — everything we need to verify the model.</li>
+<li><b>Back up your data.</b> At any time press <b>“Save backup (JSON)”</b> to download a file containing every entry. If you switch device, change browser, or clear your history, press <b>“Restore from JSON”</b> and choose that file to bring all your patients back exactly as they were.</li>
 </ol>
 <div class="imp"><b>Tip:</b> the predicted mortality updates live as you enter each patient, so the tool doubles as a bedside risk calculator. Save your browser tab; your entered patients persist on this device until you clear them.</div>
 </details>
@@ -137,28 +138,31 @@ footer{margin-top:18px;font-size:12px;color:var(--mute);text-align:center;line-h
   <div class="rcell"><div class="k">Predicted in-hospital / 30-day mortality</div><div class="bignum" id="risk" style="color: rgb(148, 163, 184);">—</div><span class="band" id="bandlabel" style="background: rgb(148, 163, 184);">Select valve(s)</span></div>
   <div class="rcell"><div class="k">Procedure profile</div><div id="profile" style="font-size:17px;font-weight:600;margin-top:8px">—</div><div class="k" style="margin-top:12px">EuroSCORE II would predict ~</div><div id="es2" style="font-size:20px;font-weight:700;color:var(--red)">—</div></div>
  </div>
- <div id="agewarn" style="margin-top:8px;font-size:12.5px;font-weight:600;text-align:center"></div>
+ <div id="agewarn" style="margin-top: 8px; font-size: 12.5px; font-weight: 600; text-align: center; color: rgb(176, 48, 48);"></div>
  <div class="bar">
   <button class="btn green" id="addbtn" onclick="addPatient()">＋ Add patient to dataset</button>
   <button class="btn ghost" onclick="clearForm()">Clear form</button>
-  <span id="msg" style="color:var(--red);font-size:13px;font-weight:600"></span>
+  <span id="msg" style="color: rgb(176, 48, 48); font-size: 13px; font-weight: 600;"></span>
  </div>
 </div>
 
 <div class="card">
- <h2>Collected dataset — <span class="count" id="count">0</span> patient(s)</h2>
+ <h2>Collected dataset — <span class="count" id="count">1</span> patient(s)</h2>
  <div class="tablewrap"><table id="tbl"><thead><tr>
    <th class="l">Study code</th><th>Age</th><th>Sex</th><th>Valves</th><th>CABG</th><th>NSS %</th><th>Outcome</th><th>Timing</th><th>Cause</th><th></th>
- </tr></thead><tbody id="tbody"></tbody></table></div>
+ </tr></thead><tbody id="tbody"><tr><td class="l" style="cursor:pointer;text-decoration:underline dotted" title="Click to edit this patient" onclick="loadPatient(0)">1</td><td>20</td><td>M</td><td>Aortic</td><td>No</td><td><b>3.9</b></td><td style="color:#2a7d46;font-weight:600">Alive <span style="color:#2a7d46">✓ 30d</span></td><td>—</td><td>—</td><td><button class="del" onclick="delRow(0)">✕</button></td></tr></tbody></table></div>
  <div style="margin:14px 0 10px;padding:10px 14px;border-radius:10px;background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;font-size:12.5px;font-weight:600">⚠ Before sending: make sure every patient is at least 30 days past surgery, and that anyone who died within 30 days has been updated (re-enter or click their study code to edit). Patients still inside the 30-day window are flagged ⏳ in the table.</div>
  <div class="bar">
   <button class="btn" onclick="exportCSV()">⬇ Export CSV (send this to us)</button>
   <button class="btn alt" onclick="exportCSV(true)">📋 Copy for Excel</button>
+  <button class="btn alt" onclick="saveJSON()">💾 Save backup (JSON)</button>
+  <button class="btn ghost" onclick="document.getElementById(&#39;restoreFile&#39;).click()">↩ Restore from JSON</button>
+  <input type="file" id="restoreFile" accept=".json,application/json" style="display:none" onchange="restoreJSON(event)">
   <button class="btn ghost" onclick="clearAll()">Clear all data</button>
  </div>
 </div>
 
-<footer>Nasser Institute for Research and Treatment · Department of Cardiac Surgery · NSS v2.7.1 external validation (model developed 1998–2023, n=15,206; incorporating preoperative rhythm and admission haemoglobin). v2.7 additionally captures pulmonary artery pressure (PAP, mmHg) and right-ventricular function for prospective collection; these are stored and exported but do not enter the current NSS or EuroSCORE II estimate. Haemoglobin adds no risk at or above 11 g/dL, then steps up by anaemia grade: moderate 8–10.9 g/dL (OR 1.40) and severe &lt;8 g/dL (OR 1.74). Normal/high haemoglobin never lowers risk.<br>Research instrument — not a substitute for clinical judgement. Data are stored only in this browser until you export.</footer>
+<footer>Nasser Institute for Research and Treatment · Department of Cardiac Surgery · NSS v2.8 external validation (model developed 1998–2023, n=15,206; incorporating preoperative rhythm and admission haemoglobin). v2.8 adds JSON backup/restore (save all entries to a file and reload them on any device) and a confirmation after each saved patient; v2.7 added pulmonary artery pressure (PAP, mmHg) and right-ventricular function for prospective collection — these are stored and exported but do not enter the current NSS or EuroSCORE II estimate. Haemoglobin adds no risk at or above 11 g/dL, then steps up by anaemia grade: moderate 8–10.9 g/dL (OR 1.40) and severe &lt;8 g/dL (OR 1.74). Normal/high haemoglobin never lowers risk.<br>Research instrument — not a substitute for clinical judgement. Data are stored only in this browser until you export.</footer>
 </div>
 
 <script>
@@ -277,8 +281,8 @@ function addPatient(){
  rec._form={op_date:document.getElementById("op_date").value,age:document.getElementById("age").value,sex:document.getElementById("sex").value,diabetes:dmv,renal:rnv,aetiology:aev,urgency:urv,ef:efv2,rhythm:document.getElementById("rhythm").value,hb:document.getElementById("hb").value,pap:document.getElementById("pap").value,rv:document.getElementById("rv").value,outcome:out,timing:document.getElementById("timing").value,cause:document.getElementById("cause").value};
  TOGS.forEach(function(t){rec._form[t]=document.getElementById(t).checked;});
  var tIdx=editIdx>=0?editIdx:findPatient(sid);
- if(tIdx>=0){data[tIdx]=rec;persist();render();clearForm();msg.style.color="#2a7d46";msg.textContent="\u2713 Patient \""+sid+"\" updated.";}
- else{data.push(rec);persist();render();clearForm();msg.style.color="#2a7d46";msg.textContent="\u2713 Patient added ("+data.length+" total).";}
+ if(tIdx>=0){data[tIdx]=rec;persist();render();clearForm();msg.style.color="#2a7d46";msg.textContent="\u2713 Patient \""+sid+"\" updated.";alert("\u2713 Patient \""+sid+"\" updated ("+data.length+" total on this device).");}
+ else{data.push(rec);persist();render();clearForm();msg.style.color="#2a7d46";msg.textContent="\u2713 Patient added ("+data.length+" total).";alert("\u2713 Patient \""+sid+"\" saved ("+data.length+" total on this device).\n\nReminder: click \u201cSave backup (JSON)\u201d to keep a copy you can restore later on any device.");}
  setTimeout(function(){msg.textContent="";msg.style.color="#b03030";},2500);
 }
 function render(){
@@ -317,6 +321,39 @@ function exportCSV(copy){
  var a=document.createElement("a");a.href=URL.createObjectURL(blob);
  a.download="NSS_validation_"+name+"_"+new Date().toISOString().slice(0,10)+".csv";
  document.body.appendChild(a);a.click();document.body.removeChild(a);
+}
+function saveJSON(){
+ if(!data.length){alert("No patients entered yet — nothing to back up.");return;}
+ var payload={_type:"NSS_validation_dataset",_version:"2.8",saved:new Date().toISOString(),
+   centre:{name:gv("c_name"),loc:gv("c_loc"),pi:gv("c_pi"),email:gv("c_email"),period:gv("c_period")},
+   patients:data};
+ var name=(gv("c_name")||"centre").replace(/[^a-z0-9]+/gi,"_");
+ var blob=new Blob([JSON.stringify(payload,null,2)],{type:"application/json;charset=utf-8;"});
+ var a=document.createElement("a");a.href=URL.createObjectURL(blob);
+ a.download="NSS_backup_"+name+"_"+new Date().toISOString().slice(0,10)+".json";
+ document.body.appendChild(a);a.click();document.body.removeChild(a);
+ alert("\uD83D\uDCBE Backup saved: "+data.length+" patient(s) written to a JSON file.\n\nKeep this file safe. You can reload it any time \u2014 even on another device \u2014 with \u201cRestore from JSON\u201d.");
+}
+function restoreJSON(ev){
+ var f=ev.target.files&&ev.target.files[0];if(!f){return;}
+ var reader=new FileReader();
+ reader.onload=function(){
+   var parsed,arr;
+   try{parsed=JSON.parse(reader.result);}catch(e){parsed=null;}
+   arr=Array.isArray(parsed)?parsed:(parsed&&Array.isArray(parsed.patients)?parsed.patients:null);
+   if(!arr){alert("This does not look like a valid NSS backup file. Please choose a .json file that was saved from this tool with \u201cSave backup (JSON)\u201d.");ev.target.value="";return;}
+   if(data.length && !confirm("This will REPLACE the "+data.length+" patient(s) currently on this device with the "+arr.length+" patient(s) from the file.\n\nContinue?")){ev.target.value="";return;}
+   data=arr;persist();render();
+   if(parsed&&parsed.centre){var C=parsed.centre,ids=["name","c_name","loc","c_loc","pi","c_pi","email","c_email","period","c_period"];
+     if(C.name)document.getElementById("c_name").value=C.name;
+     if(C.loc)document.getElementById("c_loc").value=C.loc;
+     if(C.pi)document.getElementById("c_pi").value=C.pi;
+     if(C.email)document.getElementById("c_email").value=C.email;
+     if(C.period)document.getElementById("c_period").value=C.period;}
+   ev.target.value="";
+   alert("\u21A9 Restored "+data.length+" patient(s) from the file.");
+ };
+ reader.readAsText(f);
 }
 // init
 (function(){
